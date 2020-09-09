@@ -1,6 +1,96 @@
 /* eslint-disable no-await-in-loop */
 const haiku = require('./haiku');
 
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "admin",
+  password: "qveCcWUwKG2OFBWFmOXD"
+});
+
+/*
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+
+  con.query('SELECT * FROM celebenvy_bello.users', function (err, result) {
+    if (err) throw err;
+    console.log("Result: " + JSON.stringify(result[0].email));
+  });
+});
+*/
+
+const connectDB = (con) => {
+  return new Promise(function (resolve, reject) {
+  		con.connect(function(err) {
+		  if (err) {
+		  	reject(err);
+		  }
+		  console.log("Connected!");
+		  resolve(con);
+		});
+  });
+}
+
+
+
+const init = async (con) => {
+	let connected = await connectDB(con)
+	return connected
+}
+
+const queryDB = (query,con) => {
+  return new Promise( async (resolve, reject) => {
+        const connected = await init( con )
+
+  		connected.query(query, function (err, result) {
+			if (err){
+				reject(err)
+			}
+			console.log("Result: " + JSON.stringify(result[0].email));			
+			resolve(result)
+		});
+  });
+}
+
+const test = async () => {
+	let result = await queryDB('SELECT * FROM celebenvy_bello.users',con)
+	console.log("Result: " + JSON.stringify(result[0].email));
+}
+
+test()
+
+/*
+const queryDB = async (query) => {
+	const connected = await init( con )
+
+	connected.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("Result: " + JSON.stringify(result[0].email));
+
+		return result
+	});
+}
+*/
+
+
+
+
+
+
+/*     
+con.query('SELECT * FROM celebenvy_bello.users', function (err, result) {
+	if (err) throw err;
+	console.log("Result: " + JSON.stringify(result[0].email));
+});
+
+        
+      } else {
+        reject(error);
+
+*/
+
 const users = {};
 
 // Random ID until the ID is not in use

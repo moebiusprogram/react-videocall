@@ -77,6 +77,8 @@ class App extends Component {
 
   render() {
     const { clientId, callFrom, callModal, callWindow, localSrc, peerSrc } = this.state;
+
+    console.log("VideoCall", clientId, callFrom, callModal, callWindow, localSrc, peerSrc)
     return (
       <div>
         <MainWindow
