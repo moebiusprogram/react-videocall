@@ -9,18 +9,6 @@ var con = mysql.createConnection({
   password: "qveCcWUwKG2OFBWFmOXD"
 });
 
-/*
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-
-  con.query('SELECT * FROM celebenvy_bello.users', function (err, result) {
-    if (err) throw err;
-    console.log("Result: " + JSON.stringify(result[0].email));
-  });
-});
-*/
-
 const connectDB = (con) => {
   return new Promise(function (resolve, reject) {
   		con.connect(function(err) {
@@ -32,8 +20,6 @@ const connectDB = (con) => {
 		});
   });
 }
-
-
 
 const init = async (con) => {
 	let connected = await connectDB(con)
@@ -61,35 +47,6 @@ const test = async () => {
 
 test()
 
-/*
-const queryDB = async (query) => {
-	const connected = await init( con )
-
-	connected.query(query, function (err, result) {
-		if (err) throw err;
-		console.log("Result: " + JSON.stringify(result[0].email));
-
-		return result
-	});
-}
-*/
-
-
-
-
-
-
-/*     
-con.query('SELECT * FROM celebenvy_bello.users', function (err, result) {
-	if (err) throw err;
-	console.log("Result: " + JSON.stringify(result[0].email));
-});
-
-        
-      } else {
-        reject(error);
-
-*/
 
 const users = {};
 
